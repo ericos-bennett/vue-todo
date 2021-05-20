@@ -1,12 +1,40 @@
 <template>
-  <div>Hello!</div>
+  <h1>Todo List</h1>
+  <TodoList :todos="todos" :toggleCompleted="toggleCompleted" />
 </template>
 
 <script>
+import TodoList from './components/TodoList';
+
 export default {
   name: 'App',
-  components: {},
+  components: { TodoList },
+  data() {
+    return {
+      todos: [
+        {
+          id: 1,
+          task: 'Buy shoelaces',
+          isCompleted: false,
+        },
+        {
+          id: 2,
+          task: 'Pack boxes',
+          isCompleted: true,
+        },
+      ],
+    };
+  },
+  methods: {
+    toggleCompleted(todo) {
+      todo.isCompleted = !todo.isCompleted;
+    },
+  },
 };
 </script>
 
-<style></style>
+<style>
+#app {
+  text-align: center;
+}
+</style>
