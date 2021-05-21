@@ -1,6 +1,11 @@
 <template>
   <h1>Todo List</h1>
   <TodoList :todos="todos" :toggleCompleted="toggleCompleted" :showCompleted="showCompleted" />
+  <form>
+    <input type="text" v-model="newTodo" />
+    <Button @click="addTodo" label="Add Todo" />
+  </form>
+  <br />
   <Button v-if="showCompleted" @click="toggleShowCompleted" label="Hide Completed" />
   <Button v-else @click="toggleShowCompleted" label="Show Completed" />
 </template>
@@ -25,7 +30,8 @@ export default {
           isCompleted: true
         }
       ],
-      showCompleted: false
+      showCompleted: false,
+      newTodo: ''
     }
   },
   methods: {
@@ -34,6 +40,15 @@ export default {
     },
     toggleShowCompleted() {
       this.showCompleted = !this.showCompleted
+    },
+    addTodo() {
+      const id = this.todos[this.todos.length - 1].id + 1
+      this.todos.push({
+        id,
+        task: this.newTodo,
+        isCompleted: false
+      })
+      this.newTodo = ''
     }
   }
 }
@@ -42,5 +57,11 @@ export default {
 <style>
 #app {
   text-align: center;
+}
+form {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  margin: 0 auto;
 }
 </style>
