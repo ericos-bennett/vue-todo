@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import TodoList from './components/TodoList'
 
 export default {
@@ -41,6 +42,7 @@ export default {
   methods: {
     toggleCompleted(todo) {
       todo.isCompleted = !todo.isCompleted
+      axios.put(`${process.env.SERVER_URL}/todos/${todo.id}/toggleComplete`)
     },
     toggleShowCompleted() {
       this.showCompleted = !this.showCompleted
@@ -54,6 +56,7 @@ export default {
           task: this.newTodo,
           isCompleted: false
         })
+        axios.post(`${process.env.SERVER_URL}/todos/${this.newTodo}`)
         this.newTodo = ''
       }
     }
