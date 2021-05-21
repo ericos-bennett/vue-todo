@@ -1,6 +1,16 @@
 <template>
   <h1>Todo List</h1>
-  <TodoList :todos="todos" :toggleCompleted="toggleCompleted" />
+  <TodoList
+    :todos="todos"
+    :toggleCompleted="toggleCompleted"
+    :showCompleted="showCompleted"
+  />
+  <Button
+    v-if="showCompleted"
+    @click="toggleShowCompleted"
+    label="Hide Completed"
+  />
+  <Button v-else @click="toggleShowCompleted" label="Show Completed" />
 </template>
 
 <script>
@@ -23,11 +33,15 @@ export default {
           isCompleted: true,
         },
       ],
+      showCompleted: false,
     };
   },
   methods: {
     toggleCompleted(todo) {
       todo.isCompleted = !todo.isCompleted;
+    },
+    toggleShowCompleted() {
+      this.showCompleted = !this.showCompleted;
     },
   },
 };

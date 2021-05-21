@@ -1,7 +1,12 @@
 <template>
   <div>
     <ul>
-      <li v-for="todo in todos" :key="todo.id" class="todo">
+      <li
+        v-for="todo in todos"
+        :key="todo.id"
+        v-show="showCompleted || todo.isCompleted"
+        class="todo"
+      >
         <h3>{{ todo.task }}</h3>
         <Button
           icon="pi pi-check"
@@ -16,7 +21,7 @@
 
 <script>
 export default {
-  props: ['todos', 'toggleCompleted'],
+  props: ['todos', 'toggleCompleted', 'showCompleted'],
 };
 </script>
 
