@@ -1,13 +1,17 @@
 <template>
-  <h1>Todo List</h1>
-  <TodoList :todos="todos" :toggleCompleted="toggleCompleted" :showCompleted="showCompleted" />
-  <form>
-    <input type="text" v-model="newTodo" />
-    <Button @click="addTodo" label="Add Todo" />
-  </form>
-  <br />
-  <Button v-if="showCompleted" @click="toggleShowCompleted" label="Hide Completed" />
-  <Button v-else @click="toggleShowCompleted" label="Show Completed" />
+  <div class="container">
+    <header>
+      <h1>Todo List</h1>
+      <form class="newTodo">
+        <input type="text" v-model="newTodo" />
+        <Button @click="addTodo" label="Add Todo" type="submit" />
+      </form>
+      <br />
+      <Button v-if="showCompleted" @click="toggleShowCompleted" label="Hide Completed" />
+      <Button v-else @click="toggleShowCompleted" label="Show Completed" />
+    </header>
+    <TodoList :todos="todos" :toggleCompleted="toggleCompleted" :showCompleted="showCompleted" />
+  </div>
 </template>
 
 <script>
@@ -41,14 +45,17 @@ export default {
     toggleShowCompleted() {
       this.showCompleted = !this.showCompleted
     },
-    addTodo() {
-      const id = this.todos[this.todos.length - 1].id + 1
-      this.todos.push({
-        id,
-        task: this.newTodo,
-        isCompleted: false
-      })
-      this.newTodo = ''
+    addTodo(e) {
+      e.preventDefault()
+      if (this.newTodo !== '') {
+        const id = this.todos[this.todos.length - 1].id + 1
+        this.todos.push({
+          id,
+          task: this.newTodo,
+          isCompleted: false
+        })
+        this.newTodo = ''
+      }
     }
   }
 }
@@ -58,10 +65,32 @@ export default {
 #app {
   text-align: center;
 }
-form {
+body {
+  margin: 0;
+}
+.container {
+  background: #eee;
+  margin: 0 auto;
+  padding: 2rem 0;
+  width: 70%;
+  height: 100vh;
+  overflow-y: 'scroll';
+}
+header {
+  height: 150px;
+}
+.container h1 {
+  margin-top: 0;
+}
+.newTodo {
   display: flex;
   justify-content: space-between;
-  width: 600px;
   margin: 0 auto;
+  width: 80%;
+  max-width: 600px;
+}
+.newTodo input {
+  flex-grow: 1;
+  margin-right: 2rem;
 }
 </style>

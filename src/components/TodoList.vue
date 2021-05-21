@@ -25,13 +25,24 @@ export default {
 
 <style>
 .todoList {
+  margin: 0 auto;
   padding: 0;
+  width: 80%;
+  max-width: 600px;
+  height: calc(100vh - 150px - 4rem);
+  overflow-y: scroll;
 }
 .todo {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 600px;
-  margin: 0 auto;
+  margin-right: 1rem;
+}
+.todo h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 4rem);
+  margin-right: 1rem;
 }
 </style>
