@@ -42,7 +42,10 @@ export default {
   methods: {
     toggleCompleted(todo) {
       todo.isCompleted = !todo.isCompleted
-      axios.put(`${process.env.SERVER_URL}/todos/${todo.id}/toggleComplete`)
+      axios
+        .put(`${process.env.VUE_APP_SERVER_URL}/todos/${todo.id}/toggleComplete`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     },
     toggleShowCompleted() {
       this.showCompleted = !this.showCompleted
@@ -56,7 +59,10 @@ export default {
           task: this.newTodo,
           isCompleted: false
         })
-        axios.post(`${process.env.SERVER_URL}/todos/${this.newTodo}`)
+        axios
+          .post(`${process.env.VUE_APP_SERVER_URL}/todos/`, { newTodo: this.newTodo })
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
         this.newTodo = ''
       }
     }
