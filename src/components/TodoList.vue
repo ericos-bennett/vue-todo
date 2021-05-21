@@ -21,8 +21,8 @@
 
 <script>
 export default {
-  props: ['todos', 'toggleCompleted', 'showCompleted'],
-};
+  props: ['todos', 'toggleCompleted', 'showCompleted']
+}
 </script>
 
 <style>
