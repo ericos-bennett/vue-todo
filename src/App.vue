@@ -23,27 +23,26 @@ export default {
   components: { TodoList },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          task: 'Buy shoelaces',
-          isCompleted: false
-        },
-        {
-          id: 2,
-          task: 'Pack boxes',
-          isCompleted: true
-        }
-      ],
+      todos: [],
       showCompleted: false,
       newTodo: ''
     }
+  },
+  created() {
+    console.log('created')
+    axios
+      .get(`${process.env.VUE_APP_SERVER_URL}/todos/`)
+      .then(res => {
+        console.log(res)
+        this.todos = res.data
+      })
+      .catch(err => console.log(err))
   },
   methods: {
     toggleCompleted(todo) {
       todo.isCompleted = !todo.isCompleted
       axios
-        .put(`${process.env.VUE_APP_SERVER_URL}/todos/${todo.id}/toggleComplete`)
+        .put(`${process.env.VUE_APP_SERVER_URL}/todos/${todo.id}`, { updatedTodo: todo })
         .then(res => console.log(res))
         .catch(err => console.log(err))
     },
