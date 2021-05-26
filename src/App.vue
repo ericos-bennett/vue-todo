@@ -42,7 +42,9 @@ export default {
     toggleCompleted(todo) {
       todo.isCompleted = !todo.isCompleted
       axios
-        .put(`${process.env.VUE_APP_SERVER_URL}/todos/${todo.id}`, { updatedTodo: todo })
+        .put(`${process.env.VUE_APP_SERVER_URL}/todos/${todo.id}`, {
+          isCompleted: todo.isCompleted
+        })
         .then(res => console.log(res))
         .catch(err => console.log(err))
     },
@@ -52,14 +54,14 @@ export default {
     addTodo(e) {
       e.preventDefault()
       if (this.newTodo !== '') {
-        const id = this.todos[this.todos.length - 1].id + 1
+        const id = this.todos.length ? this.todos[this.todos.length - 1].id + 1 : 1
         this.todos.push({
           id,
           task: this.newTodo,
           isCompleted: false
         })
         axios
-          .post(`${process.env.VUE_APP_SERVER_URL}/todos/`, { newTodo: this.newTodo })
+          .post(`${process.env.VUE_APP_SERVER_URL}/todos/`, { task: this.newTodo })
           .then(res => console.log(res))
           .catch(err => console.log(err))
         this.newTodo = ''
